@@ -1,0 +1,17 @@
+// In render method
+render(){
+  let classes=['red','bold'].join(' ');// red bold
+    return (
+      <div className="App">
+      <p className ={classes}>Hello</p>
+  )
+}
+
+// In App.css (imported CSS file)
+
+.red{
+  color: red;
+}
+.bold{
+  font-weight:bold;
+}
