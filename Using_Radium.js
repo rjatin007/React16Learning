@@ -55,7 +55,7 @@ onToggle=()=>{
       padding : '8px',
       cursor: 'pointer',
       marginTop : '200px',
-      ':hover':{
+      ':hover':{ // we can add styles using radium
         backgroundColor : 'lightgreen',
         color : 'black'
       }
@@ -71,7 +71,7 @@ onToggle=()=>{
         )
       )
       style.backgroundColor='red'
-      style[':hover']={
+      style[':hover']={   // square brackets are used for the fact that we are using string and not a key
         backgroundColor :'lightred',
         color : 'black'
       }
