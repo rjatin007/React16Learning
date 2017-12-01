@@ -1,0 +1,26 @@
+npm run eject
+webpack.config.dev.js > 
+module > make following changes where   test: /\.css$/
+  in 'use: [...'
+              require.resolve('style-loader'),
+              {
+                loader: require.resolve('css-loader'),
+                options: {
+                  importLoaders: 1,
+                  modules : true,
+                  localIdentName: '[name]__[local]__[hash:base64:5]'
+                },
+
+now open webpack.config.prod.js 
+module > make following changes where   test: /\.css$/
+in Object.assign > 'use : [...'
+
+        {
+                      loader: require.resolve('css-loader'),
+                      options: {
+                        iimportLoaders: 1,
+                        modules : true,
+                        localIdentName: '[name]__[local]__[hash:base64:5]',
+                        minimize: true,
+                        sourceMap: shouldUseSourceMap,
+                      }
