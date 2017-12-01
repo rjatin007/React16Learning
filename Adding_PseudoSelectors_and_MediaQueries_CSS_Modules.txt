@@ -77,6 +77,25 @@ onToggle=()=>{
 
 export default App;
 
+// In Person.js
+
+import React , { Component } from 'react';
+import Styles from './Person.css';
+
+class Person extends Component{
+    render(){
+    return(
+        <div className= {Styles.Person} >
+        <p>Person here is {this.props.name} </p>
+        <input type="text" onChange={this.props.changed} value={this.props.name}/>
+        <button style={{marginTop:'20px'}} onClick={this.props.click}>Delete</button>
+        
+        </div>
+    )
+}
+}
+export default Person;
+
 
 // In App.css
 .App {
