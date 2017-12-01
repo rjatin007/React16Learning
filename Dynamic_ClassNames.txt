@@ -1,9 +1,24 @@
 // In render method
+// static version
 render(){
   let classes=['red','bold'].join(' ');// red bold
     return (
       <div className="App">
       <p className ={classes}>Hello</p>
+  )
+}
+// Dynamic Version
+render(){
+ const classes = [];
+    if(persons.length<=2){
+      classes.push('red');
+    }
+    if(persons.length<=1){
+      classes.push('bold');
+    }
+ return (
+      <div className="App">
+      <p className ={classes.join(' ')}>Hello</p>
   )
 }
 
