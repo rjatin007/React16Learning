@@ -1,0 +1,107 @@
+//in ErrorBoundary.js
+
+import React, { Component } from 'react';
+
+class ErrorBoundary extends Component{
+    state={
+        hasError : false,
+        errorMessage :''
+    }
+    componentDidCatch=(error,info)=>{
+        this.setState({
+            hasError :true,
+            errorMessage : error
+        })
+    } 
+    render(){
+        if(this.state.hasError){
+            return<h1>{this.state.errorMessage}</h1>
+        }else{
+            return this.props.children;
+        }
+    }
+}
+export default ErrorBoundary;
+
+// In App.js
+
+import React, { Component } from 'react';
+import Styles from './App.css';
+import Person from './Person/Person';
+import ErrorBoundary from'./ErrorBoundary/ErrorBoundary';
+
+class App extends Component {
+state={
+  persons:[
+    { id: 1, name : 'Jatin' , age : 26 },
+    { id: 2, name : 'Riship' , age : 26 },
+    { id: 3, name : 'Amit' , age : 28 }
+  ],
+  showPersons:false
+}
+
+onChangeHandler=(event,id)=>{
+  let val = event.target.value
+  const personIndex=this.state.persons.findIndex(p=>(p.id===id))
+  const person={...this.state.persons[personIndex]};
+  person.name = val;
+  const persons=[...this.state.persons];
+  persons[personIndex]=person;
+  this.setState({persons});
+}
+deletePerson=(index)=>{
+//const persons=this.state.persons.slice();// its a pointer reference
+const persons = [...this.state.persons];
+persons.splice(index,1); 
+this.setState({persons});
+}
+onToggle=()=>{
+  const show = this.state.showPersons;
+  this.setState({
+    showPersons : !show
+  });
+}
+  render() {
+    const { persons, showPersons } = this.state;
+    let showCase = null;
+    let buttonClass ='';
+    if(showPersons){
+     showCase  =  (
+          persons.map((person,index)=>(
+           <ErrorBoundary key={person.id} >                 ///////////// See the use of Error Boundary Component
+           <Person key={person.id} name={person.name}
+              click={()=>this.deletePerson(index)}
+              age = {person.age}
+              changed={(event)=> this.onChangeHandler(event,person.id)}/>
+           </ErrorBoundary>   
+          )
+        )
+      )
+      buttonClass= Styles.red;
+     
+    }
+    // let classes=['red','bold'].join(' ');// red bold
+    const classes = [];
+    if(persons.length<=2){
+      classes.push(Styles.red);
+    }
+    if(persons.length<=1){
+      classes.push(Styles.bold);
+    }
+    return (
+    
+        <div className={Styles.App}>
+          <p className ={classes.join(' ')}>Hello</p>
+            {showCase}
+            <button 
+            className={buttonClass}
+            onClick={this.onToggle}>
+            Render Conditionally
+          </button> 
+        </div>
+      
+    );
+  }
+}
+
+export default App;
